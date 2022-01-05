@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/resilia-salao/static/css/main.073c9b0a.css",
+    "main.js": "/resilia-salao/static/js/main.45e923de.js",
+    "static/js/787.9658b975.chunk.js": "/resilia-salao/static/js/787.9658b975.chunk.js",
+    "static/media/logo.svg": "/resilia-salao/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/resilia-salao/index.html",
+    "main.073c9b0a.css.map": "/resilia-salao/static/css/main.073c9b0a.css.map",
+    "main.45e923de.js.map": "/resilia-salao/static/js/main.45e923de.js.map",
+    "787.9658b975.chunk.js.map": "/resilia-salao/static/js/787.9658b975.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.45e923de.js"
+  ]
+}
