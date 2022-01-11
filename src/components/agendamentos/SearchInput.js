@@ -3,11 +3,13 @@ import styled from "styled-components";
 import { TextInput } from "../input/input";
 
 const StyledUl = styled.ul`
-  width: 336px;
+  width: 320px;
   background-color: #fff;
   list-style-type: none;
   padding-inline-start: 0;
   margin-block-start: 0;
+  box-shadow: 2.5px 5px 15px -10px #36363585;
+  position: absolute;
 `;
 const StyledLi = styled.li`
   margin: 0;
@@ -19,6 +21,10 @@ const StyledLi = styled.li`
   }
 `;
 
+const StyledDiv = styled.div`
+  grid-area: ${(props) => props.gridArea};
+`;
+
 export const SearchInput = ({
   label,
   id,
@@ -26,21 +32,26 @@ export const SearchInput = ({
   onChange,
   options,
   onSelect,
+  gridArea,
 }) => {
   const [showList, setShowList] = useState(false);
+
+  const onOptionSelected = (opt) => {
+    onSelect(opt);
+    setShowList(false);
+  };
 
   const OptionsList = () => {
     return (
       <StyledUl>
         {options.slice(0, 5).map((opt) => {
-          const onOptionSelected = () => {
-            setShowList(false);
-            onSelect(opt);
-          };
-
           return (
-            <StyledLi key={opt.email} onClick={onOptionSelected}>
-              {opt.name} ({opt.email})
+            <StyledLi
+              key={opt.id}
+              tabIndex="0"
+              onClick={(e) => onOptionSelected(opt)}
+            >
+              {opt.name} {opt.email && `(${opt.email})`}
             </StyledLi>
           );
         })}
@@ -52,12 +63,14 @@ export const SearchInput = ({
     setShowList(true);
   };
 
-  const hideOptionsList = () => {
-    setShowList(false);
+  const hideOptionsList = (e) => {
+    if (!e.relatedTarget) {
+      setShowList(false);
+    }
   };
 
   return (
-    <div>
+    <StyledDiv gridArea={gridArea}>
       <TextInput
         label={label}
         id={id}
@@ -67,6 +80,6 @@ export const SearchInput = ({
         onBlur={hideOptionsList}
       />
       {showList && <OptionsList />}
-    </div>
+    </StyledDiv>
   );
 };
