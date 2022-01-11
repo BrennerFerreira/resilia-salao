@@ -4,6 +4,8 @@ import styled from "styled-components";
 const InputArea = styled.div`
   display: flex;
   flex-direction: column;
+  width: ${(props) => (props.isPrice ? "80px" : "320px")};
+  grid-area: ${(props) => props.gridArea};
 `;
 
 const StyledInput = styled.input`
@@ -11,7 +13,6 @@ const StyledInput = styled.input`
   border: none;
   padding: 8px;
   height: 24px;
-  width: ${(props) => (props.isPrice ? "80px" : "320px")};
 
   &:focus {
     box-shadow: 2.5px 5px 15px -10px #36363585;
@@ -44,6 +45,7 @@ export const TextInput = ({ label, id, value, onChange, onFocus, onBlur }) => {
         onChange={onChangeInput}
         onFocus={onFocus}
         onBlur={onBlur}
+        autoComplete="off"
       />
     </InputArea>
   );
@@ -60,33 +62,35 @@ export const PriceInput = ({ label, id, value, onChange }) => {
     onChange(formatted);
   };
   return (
-    <InputArea>
+    <InputArea isPrice>
       <label htmlFor={id}>{label}</label>
       <StyledInput
         id={id}
-        isPrice
         type="number"
         step={0.01}
         value={value}
         onChange={onChangeInput}
+        autoComplete="off"
       />
     </InputArea>
   );
 };
 
-export const DateTimeInput = ({ label, id, value, onChange }) => {
+export const DateTimeInput = ({ label, id, value, onChange, gridArea }) => {
   const onDateChange = (e) => {
     const value = e.target.value;
     onChange(value);
   };
 
   return (
-    <InputArea>
+    <InputArea gridArea={gridArea}>
       <label htmlFor={id}>{label}</label>
       <StyledInput
+        id={id}
         type="datetime-local"
         value={value}
         onChange={onDateChange}
+        autoComplete="off"
       />
     </InputArea>
   );
