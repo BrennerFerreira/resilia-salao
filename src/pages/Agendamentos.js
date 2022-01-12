@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ScheduleForm } from "../components/agendamentos/ScheduleForm";
 import { SchedulesList } from "../components/agendamentos/SchedulesList";
+import { Loading } from "../components/loading/Loading";
 import { getApiUrl } from "../utils/getApiUrl";
 
 const Container = styled.main`
@@ -117,9 +118,8 @@ export const Agendamentos = () => {
   const onCancel = () => {
     setEditingSchedule(undefined);
   };
-
   return loading ? (
-    <div>Carregando...</div>
+    <Loading />
   ) : (
     <Container>
       <StyledTitle>Agendamentos</StyledTitle>

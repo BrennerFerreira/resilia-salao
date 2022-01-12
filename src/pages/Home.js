@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Statistics } from "../components/home/Statistics";
+import { Loading } from "../components/loading/Loading";
 import { getApiUrl } from "../utils/getApiUrl";
 
 const Container = styled.div`
@@ -41,10 +42,6 @@ export const Home = () => {
 
     fetchData();
   }, []);
-
-  const Loading = () => {
-    return <div>Carregando...</div>;
-  };
 
   return loading ? (
     <Loading />
