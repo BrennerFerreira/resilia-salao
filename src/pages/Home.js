@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Statistics } from "../components/home/Statistics";
+import { Layout } from "../components/layout/Layout";
 import { Loading } from "../components/loading/Loading";
 import { getApiUrl } from "../utils/getApiUrl";
 
@@ -46,16 +47,18 @@ export const Home = () => {
   return loading ? (
     <Loading />
   ) : (
-    <Container>
-      <StyledTitle>
-        Bem-vinde ao sistema de gerenciamento do seu salão de beleza
-      </StyledTitle>
-      <StyledSubtitle>
-        Seu salão está incrível! Veja algumas informações:
-      </StyledSubtitle>
-      <StyledStatistics>
-        <Statistics statistics={statistics} />
-      </StyledStatistics>
-    </Container>
+    <Layout>
+      <Container>
+        <StyledTitle>
+          Bem-vinde ao sistema de gerenciamento do seu salão de beleza
+        </StyledTitle>
+        <StyledSubtitle>
+          Seu salão está incrível! Veja algumas informações:
+        </StyledSubtitle>
+        <StyledStatistics>
+          <Statistics statistics={statistics} />
+        </StyledStatistics>
+      </Container>
+    </Layout>
   );
 };
