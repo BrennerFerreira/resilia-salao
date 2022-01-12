@@ -29,6 +29,7 @@ export const Home = () => {
       <Header></Header>
       <h1>Bem-vinde ao sistema de gerenciamento do seu salão de beleza</h1>
       {loading ? <Loading /> : <Statistics statistics={statistics} />}
+      <Footer></Footer>
     </div>
   );
 };
