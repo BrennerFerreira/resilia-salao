@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import { ScheduleForm } from "../components/agendamentos/ScheduleForm";
 import { SchedulesList } from "../components/agendamentos/SchedulesList";
@@ -122,6 +123,9 @@ export const Agendamentos = () => {
     <Loading />
   ) : (
     <Container>
+      <Helmet>
+        <title>Resilia Salão | Agendamentos</title>
+      </Helmet>
       <StyledTitle>Agendamentos</StyledTitle>
       <StyledParagraph>Marque o próximo agendamento:</StyledParagraph>
       <ScheduleForm
