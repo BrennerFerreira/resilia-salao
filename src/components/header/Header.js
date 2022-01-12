@@ -27,7 +27,7 @@ const Styledli = styled.li`
     padding: 2%;
 `
 const StyledLink = styled(Link)`
-    color: #fd84bd
+    color:  #FFD6E9
 `
 
 export const Header = () => {
