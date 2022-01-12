@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Footer } from "../components/footer/Footer";
 import { Header } from "../components/header/Header";
 import { Statistics } from "../components/home/Statistics";
 import { Loading } from "../components/loading/Loading";
@@ -61,6 +62,8 @@ export const Home = () => {
           <Statistics statistics={statistics} />
         </StyledStatistics>
       </Container>
+
+      <Footer></Footer>
     </div>
   );
 };
