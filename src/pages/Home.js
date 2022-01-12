@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Header } from "../components/header/Header";
 import { Statistics } from "../components/home/Statistics";
 import { getApiUrl } from "../utils/getApiUrl";
 
@@ -25,6 +26,7 @@ export const Home = () => {
 
   return (
     <div>
+      <Header></Header>
       <h1>Bem-vinde ao sistema de gerenciamento do seu salão de beleza</h1>
       {loading ? <Loading /> : <Statistics statistics={statistics} />}
     </div>
