@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import { ScheduleForm } from "../components/agendamentos/ScheduleForm";
 import { SchedulesList } from "../components/agendamentos/SchedulesList";
+import { Layout } from "../components/layout/Layout";
 import { Loading } from "../components/loading/Loading";
 import { getApiUrl } from "../utils/getApiUrl";
 
@@ -122,26 +123,28 @@ export const Agendamentos = () => {
   return loading ? (
     <Loading />
   ) : (
-    <Container>
-      <Helmet>
-        <title>Resilia Salão | Agendamentos</title>
-      </Helmet>
-      <StyledTitle>Agendamentos</StyledTitle>
-      <StyledParagraph>Marque o próximo agendamento:</StyledParagraph>
-      <ScheduleForm
-        gridArea="form"
-        users={users}
-        services={services}
-        onSubmit={onSubmit}
-        editingSchedule={editingSchedule}
-        onCancel={onCancel}
-      />
-      <StyledSmallTitle>Todos agendamentos:</StyledSmallTitle>
-      <SchedulesList
-        schedules={schedules}
-        onRemoveSchedule={onRemove}
-        onEditSchedule={onEdit}
-      />
-    </Container>
+    <Layout>
+      <Container>
+        <Helmet>
+          <title>Resilia Salão | Agendamentos</title>
+        </Helmet>
+        <StyledTitle>Agendamentos</StyledTitle>
+        <StyledParagraph>Marque o próximo agendamento:</StyledParagraph>
+        <ScheduleForm
+          gridArea="form"
+          users={users}
+          services={services}
+          onSubmit={onSubmit}
+          editingSchedule={editingSchedule}
+          onCancel={onCancel}
+        />
+        <StyledSmallTitle>Todos agendamentos:</StyledSmallTitle>
+        <SchedulesList
+          schedules={schedules}
+          onRemoveSchedule={onRemove}
+          onEditSchedule={onEdit}
+        />
+      </Container>
+    </Layout>
   );
 };

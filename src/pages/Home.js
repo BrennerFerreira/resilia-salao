@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Footer } from "../components/footer/Footer";
-import { Header } from "../components/header/Header";
 import { Statistics } from "../components/home/Statistics";
+import { Layout } from "../components/layout/Layout";
 import { Loading } from "../components/loading/Loading";
 import { getApiUrl } from "../utils/getApiUrl";
 
@@ -48,9 +47,7 @@ export const Home = () => {
   return loading ? (
     <Loading />
   ) : (
-    <div>
-      <Header></Header>
-
+    <Layout>
       <Container>
         <StyledTitle>
           Bem-vinde ao sistema de gerenciamento do seu salão de beleza
@@ -62,8 +59,6 @@ export const Home = () => {
           <Statistics statistics={statistics} />
         </StyledStatistics>
       </Container>
-
-      <Footer></Footer>
-    </div>
+    </Layout>
   );
 };
