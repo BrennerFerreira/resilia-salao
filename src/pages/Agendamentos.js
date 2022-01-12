@@ -32,6 +32,7 @@ export const Agendamentos = () => {
   const [services, setServices] = useState([]);
   const [schedules, setSchedules] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [editingSchedule, setEditingSchedule] = useState(undefined);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -63,19 +64,38 @@ export const Agendamentos = () => {
     getData();
   }, []);
 
-  const makeSchedule = async ({
+  const onSubmit = async ({
     selectedUser,
     selectedDateTime,
     selectedService,
+    id,
   }) => {
     setLoading(true);
 
+    const datetime = new Date(selectedDateTime);
+    const scheduleDate = new Date(datetime.setHours(datetime.getHours()));
+
     const url = getApiUrl("/schedules");
-    await axios.post(url, {
-      userId: selectedUser.id,
-      serviceId: selectedService.id,
-      data: new Date(selectedDateTime),
-    });
+    if (id) {
+      const editUrl = `${url}/${id}`;
+      await axios.patch(editUrl, {
+        userId: selectedUser.id,
+        serviceId: selectedService.id,
+        data: scheduleDate,
+      });
+    } else {
+      await axios.post(url, {
+        userId: selectedUser.id,
+        serviceId: selectedService.id,
+        data: scheduleDate,
+      });
+    }
+
+    const apiSchedules = await axios.get(url);
+
+    setSchedules(apiSchedules.data);
+
+    setEditingSchedule(undefined);
 
     setLoading(false);
   };
@@ -90,6 +110,14 @@ export const Agendamentos = () => {
     setLoading(false);
   };
 
+  const onEdit = (sch) => {
+    setEditingSchedule(sch);
+  };
+
+  const onCancel = () => {
+    setEditingSchedule(undefined);
+  };
+
   return loading ? (
     <div>Carregando...</div>
   ) : (
@@ -100,10 +128,16 @@ export const Agendamentos = () => {
         gridArea="form"
         users={users}
         services={services}
-        onSubmit={makeSchedule}
+        onSubmit={onSubmit}
+        editingSchedule={editingSchedule}
+        onCancel={onCancel}
       />
       <StyledSmallTitle>Todos agendamentos:</StyledSmallTitle>
-      <SchedulesList schedules={schedules} onRemoveSchedule={onRemove} />
+      <SchedulesList
+        schedules={schedules}
+        onRemoveSchedule={onRemove}
+        onEditSchedule={onEdit}
+      />
     </Container>
   );
 };

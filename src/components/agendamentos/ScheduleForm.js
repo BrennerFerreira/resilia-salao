@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { CancelButton } from "../button/CancelButton";
 import { MainButton } from "../button/MainButton";
 import { DateTimeInput } from "../input/input";
 import { SearchInput } from "./SearchInput";
@@ -19,11 +20,33 @@ const StyledForm = styled.form`
   display: grid;
   grid-template-areas:
     "client service date"
-    ". . submit";
+    ". . buttons";
   justify-content: space-between;
 `;
 
-export const ScheduleForm = ({ users, services, onSubmit, gridArea }) => {
+const ButtonArea = styled.div`
+  grid-area: buttons;
+  display: grid;
+  grid-template-areas: "cancel submit";
+  justify-content: space-between;
+`;
+
+const CancelArea = styled(CancelButton)`
+  grid-area: cancel;
+`;
+
+const SubmitArea = styled(MainButton)`
+  grid-area: submit;
+`;
+
+export const ScheduleForm = ({
+  users,
+  services,
+  onSubmit,
+  gridArea,
+  editingSchedule,
+  onCancel,
+}) => {
   const [userSearch, setUserSearch] = useState("");
   const [serviceSearch, setServiceSearch] = useState("");
   const [selectedDateTime, setSelectedDateTime] = useState(
@@ -33,6 +56,19 @@ export const ScheduleForm = ({ users, services, onSubmit, gridArea }) => {
   const [selectedService, setSelectedService] = useState(undefined);
   const [filteredUsers, setFilteredUsers] = useState([...users]);
   const [filteredServices, setFilteredServices] = useState([...services]);
+
+  useEffect(() => {
+    setSelectedUser(editingSchedule?.user);
+    setUserSearch(editingSchedule?.user.name || "");
+    setSelectedService(editingSchedule?.service);
+    setServiceSearch(editingSchedule?.service.name || "");
+    console.log(editingSchedule);
+    setSelectedDateTime(
+      editingSchedule?.data
+        ? formatDate(new Date(editingSchedule.data))
+        : formatDate(new Date())
+    );
+  }, [editingSchedule]);
 
   useEffect(() => {
     const filteredUsers = users.filter((user) =>
@@ -72,9 +108,28 @@ export const ScheduleForm = ({ users, services, onSubmit, gridArea }) => {
     setSelectedDateTime(dateString);
   };
 
-  const onFormSubmit = (e) => {
+  const onFormSubmit = async (e) => {
     e.preventDefault();
-    onSubmit({ selectedUser, selectedDateTime, selectedService });
+    await onSubmit({
+      selectedUser,
+      selectedDateTime,
+      selectedService,
+      id: editingSchedule?.id,
+    });
+
+    setSelectedUser(undefined);
+    setUserSearch("");
+    setSelectedService(undefined);
+    setServiceSearch("");
+    setSelectedDateTime(formatDate(new Date()));
+  };
+
+  const onFormCancel = (e) => {
+    e.preventDefault();
+    setUserSearch("");
+    setServiceSearch("");
+    setSelectedDateTime(formatDate(new Date()));
+    onCancel();
   };
 
   return (
@@ -104,12 +159,14 @@ export const ScheduleForm = ({ users, services, onSubmit, gridArea }) => {
         value={selectedDateTime}
         onChange={onDateInputChange}
       />
-      <MainButton
-        gridArea="submit"
-        label="Agendar"
-        disabled={!(selectedUser && selectedService)}
-        onClick={onFormSubmit}
-      />
+      <ButtonArea>
+        <CancelArea onCancel={onFormCancel} />
+        <SubmitArea
+          label={editingSchedule ? "Editar" : "Agendar"}
+          disabled={!(selectedUser && selectedService)}
+          onClick={onFormSubmit}
+        />
+      </ButtonArea>
     </StyledForm>
   );
 };

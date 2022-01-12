@@ -10,7 +10,6 @@ const StyledButton = styled.button`
   margin: 16px 0;
   background-color: ${(props) => (props.disabled ? "#7ebc89" : "#fe5d26")};
   grid-area: ${(props) => props.gridArea};
-  justify-self: ${(props) => props.gridArea && "end"};
   box-shadow: ${(props) =>
     props.disabled ? "none" : "0 5px 15px - 5px #fe5c26b7"};
   &:hover {

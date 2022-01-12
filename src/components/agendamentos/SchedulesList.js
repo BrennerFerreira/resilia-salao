@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Edit } from "../edit/Edit";
 import { Remove } from "../remove/Remove";
 
 const StyledUl = styled.ul`
@@ -8,10 +9,10 @@ const StyledUl = styled.ul`
 
 const StyledLi = styled.li`
   display: grid;
+  grid-template-columns: 3fr 3fr 3fr 1fr 1fr;
   grid-template-areas:
-    "clientTitle clientTitle serviceTitle serviceTitle dateTitle dateTile ."
-    "client client service service date date remove";
-  justify-content: space-between;
+    "clientTitle serviceTitle dateTitle . ."
+    "client service date edit remove";
   ${(props) =>
     !props.isTitle &&
     `&:hover {
@@ -39,6 +40,7 @@ const ScheduleService = styled.div`
 const ScheduleServiceTitle = styled.div`
   grid-area: serviceTitle;
   font-weight: bold;
+  justify-self: center;
 `;
 
 const ScheduleDate = styled.div`
@@ -60,10 +62,27 @@ const ScheduleRemove = styled.div`
   }
 `;
 
-export const SchedulesList = ({ schedules, onRemoveSchedule }) => {
+const ScheduleEdit = styled.div`
+  grid-area: edit;
+  justify-self: center;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const SchedulesList = ({
+  schedules,
+  onRemoveSchedule,
+  onEditSchedule,
+}) => {
   const onRemove = (id) => {
     onRemoveSchedule(id);
   };
+
+  const onEdit = (schedule) => {
+    onEditSchedule(schedule);
+  };
+
   return (
     <StyledUl>
       <StyledLi key="title" isTitle>
@@ -80,6 +99,9 @@ export const SchedulesList = ({ schedules, onRemoveSchedule }) => {
             <ScheduleRemove>
               <Remove onClick={() => onRemove(sch.id)} />
             </ScheduleRemove>
+            <ScheduleEdit>
+              <Edit onClick={(e) => onEdit(sch)} />
+            </ScheduleEdit>
           </StyledLi>
         );
       })}
