@@ -53,14 +53,10 @@ export const TextInput = ({ label, id, value, onChange, onFocus, onBlur }) => {
 
 export const PriceInput = ({ label, id, value, onChange }) => {
   const onChangeInput = (e) => {
-    const value = +e.target.value || 0;
-    const formatted = new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(value / 100);
-
-    onChange(formatted);
+    const textValue = e.target.value;
+    onChange(+textValue);
   };
+
   return (
     <InputArea isPrice>
       <label htmlFor={id}>{label}</label>
@@ -68,7 +64,7 @@ export const PriceInput = ({ label, id, value, onChange }) => {
         id={id}
         type="number"
         step={0.01}
-        value={value}
+        value={value || ""}
         onChange={onChangeInput}
         autoComplete="off"
       />
