@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { CancelButton } from "../button/CancelButton";
 import { MainButton } from "../button/MainButton";
-import { SearchInput } from "./SearchInput";
+import { PriceInput, TextInput } from "../input/input";
 
 const StyledForm = styled.form`
   grid-area: ${(props) => props.gridArea};
@@ -35,60 +35,74 @@ export const ServicesForm = ({
   editingServices,
   onCancel,
 }) => {
-  const [serviceSearch, setServicesSearch] = useState("");
-  const [selectedServices, setSelectedServices] = useState(undefined);
-  const [filteredServices, setFilteredServices] = useState([...services]);
+  const [serviceName, setServiceName] = useState("");
+  const [employeeName, setEmployeeName] = useState("");
+  const [price, setPrice] = useState(0.0);
 
   useEffect(() => {
-    const filteredServices = services.filter((service) =>
-      service.name.toLowerCase().includes(serviceSearch.toLowerCase())
-    );
-    setFilteredServices(filteredServices);
-  }, [servicesSearch, services]);
+    setServiceName(editingServices?.name || "");
+    setEmployeeName(editingServices?.employeeName || "");
+    setPrice(editingServices?.price || 0.0);
+  }, [editingServices]);
 
   const onServicesInputChange = (serviceName) => {
-    setSelectedServices(undefined);
-    setServicesSearch(serviceName);
+    setServiceName(serviceName);
   };
 
-  const onServicesSelected = (service) => {
-    setSelectedServices(service);
-    setServicesSearch(service.name);
+  const onEmployeeInputChange = (employee) => {
+    setEmployeeName(employee);
+  };
+
+  const onPriceChange = (newPrice) => {
+    setPrice(newPrice);
   };
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
     await onSubmit({
-      selectedServices,
+      serviceName,
+      employeeName,
+      price,
       id: editingServices?.id,
     });
-
-    setSelectedServices(undefined);
-    setServicesSearch("");
-}
+  };
 
   const onFormCancel = (e) => {
     e.preventDefault();
-    setServicesSearch("");
+    setServiceName("");
+    setEmployeeName("");
+    setPrice(0.0);
     onCancel();
   };
 
   return (
     <StyledForm gridArea={gridArea}>
-      <SearchInput
+      <TextInput
         label="Serviço:"
         id="service"
-        value={servicesSearch}
+        value={serviceName}
         onChange={onServicesInputChange}
-        onSelect={onServicesSelected}
-        options={filteredServices}
         gridArea="service"
+      />
+      <TextInput
+        label="Funcionário:"
+        id="employee"
+        value={employeeName}
+        onChange={onEmployeeInputChange}
+        gridArea="employee"
+      />
+      <PriceInput
+        label="Valor:"
+        id="price"
+        value={price}
+        onChange={onPriceChange}
+        gridArea="price"
       />
       <ButtonArea>
         <CancelArea onCancel={onFormCancel} />
         <SubmitArea
-          label={editingServices ? "Editar": "Servicos"}
-          disabled={!(selectedServices)}
+          label={editingServices ? "Editar" : "Salvar"}
+          disabled={!(serviceName && employeeName && price)}
           onClick={onFormSubmit}
         />
       </ButtonArea>
