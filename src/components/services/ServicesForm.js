@@ -35,8 +35,8 @@ export const ServicesForm = ({
   editingServices,
   onCancel,
 }) => {
-  const [serviceSearch, setServiceSearch] = useState("");
-  const [selectedService, setSelectedService] = useState(undefined);
+  const [serviceSearch, setServicesSearch] = useState("");
+  const [selectedServices, setSelectedServices] = useState(undefined);
   const [filteredServices, setFilteredServices] = useState([...services]);
 
   useEffect(() => {
@@ -44,32 +44,32 @@ export const ServicesForm = ({
       service.name.toLowerCase().includes(serviceSearch.toLowerCase())
     );
     setFilteredServices(filteredServices);
-  }, [serviceSearch, services]);
+  }, [servicesSearch, services]);
 
-  const onServiceInputChange = (serviceName) => {
-    setSelectedService(undefined);
-    setServiceSearch(serviceName);
+  const onServicesInputChange = (serviceName) => {
+    setSelectedServices(undefined);
+    setServicesSearch(serviceName);
   };
 
-  const onServiceSelected = (service) => {
-    setSelectedService(service);
-    setServiceSearch(service.name);
+  const onServicesSelected = (service) => {
+    setSelectedServices(service);
+    setServicesSearch(service.name);
   };
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
     await onSubmit({
-      selectedService,
+      selectedServices,
       id: editingServices?.id,
     });
 
-    setSelectedService(undefined);
-    setServiceSearch("");
+    setSelectedServices(undefined);
+    setServicesSearch("");
 }
 
   const onFormCancel = (e) => {
     e.preventDefault();
-    setServiceSearch("");
+    setServicesSearch("");
     onCancel();
   };
 
@@ -78,9 +78,9 @@ export const ServicesForm = ({
       <SearchInput
         label="Serviço:"
         id="service"
-        value={serviceSearch}
-        onChange={onServiceInputChange}
-        onSelect={onServiceSelected}
+        value={servicesSearch}
+        onChange={onServicesInputChange}
+        onSelect={onServicesSelected}
         options={filteredServices}
         gridArea="service"
       />
@@ -88,7 +88,7 @@ export const ServicesForm = ({
         <CancelArea onCancel={onFormCancel} />
         <SubmitArea
           label={editingServices ? "Editar" : "Editar"}
-          disabled={!(selectedService)}
+          disabled={!(selectedServices)}
           onClick={onFormSubmit}
         />
       </ButtonArea>

@@ -11,8 +11,8 @@ const StyledLi = styled.li`
   display: grid;
   grid-template-columns: 3fr 3fr 3fr 1fr 1fr;
   grid-template-areas:
-    "clientTitle serviceTitle dateTitle . ."
-    "client service date edit remove";
+    "servicesTitle . ."
+    "services edit remove";
   ${(props) =>
     !props.isTitle &&
     `&:hover {
@@ -22,7 +22,7 @@ const StyledLi = styled.li`
 `;
 
 const Services = styled.div`
-  grid-area: service;
+  grid-area: services;
   justify-self: center;
 `;
 
