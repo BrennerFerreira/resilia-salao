@@ -87,7 +87,7 @@ export const ServicesForm = ({
       <ButtonArea>
         <CancelArea onCancel={onFormCancel} />
         <SubmitArea
-          label={editingServices ? "Editar" : "Editar"}
+          label={editingServices ? "Editar": "Servicos"}
           disabled={!(selectedServices)}
           onClick={onFormSubmit}
         />
