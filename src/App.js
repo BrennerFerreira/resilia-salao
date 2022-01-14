@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
 import { Agendamentos } from "./pages/Agendamentos";
 import { Contato } from "./pages/Contato";
 import { Home } from "./pages/Home";
