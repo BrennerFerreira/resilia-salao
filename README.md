@@ -52,4 +52,3 @@ Caso queira utilizar a versão online hospedada na [Vercel](https://www.vercel.c
 utilize o link abaixo:
 
 [https://resilia-salao.vercel.app/](https://resilia-salao.vercel.app/)
-
