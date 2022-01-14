@@ -1,57 +1,52 @@
-import Layout from "../components/layout/Layout";
+import { Layout } from "../components/layout/Layout";
 import styled from "styled-components";
+import brenner from "../pics/brenner.PNG" 
+import beatriz from "../pics/beatriz.PNG" 
+import fernando from "../pics/fernando.PNG" 
+import joao from "../pics/joao.PNG" 
+import vitoria from "../pics/vitoria.PNG" 
 
 const Container = styled.div`
   display: grid;
   grid-template-areas:
-    ". title title title title ."
-    ". subtitle subtitle subtitle subtitle ."
-    ". statistics statistics statistics statistics .";
+    ". pics pics pics pics pics .";
+  
 `;
+const pics = ({alt,src}) => 
+{
+return (<div class="figure">
+<img src={src}
+alt={alt}
+width="200vw"
+height="200vw"/>
 
-export const contato = () => {
+<h4>{alt}</h4>
+</div>)
+}
+const StyledPics = styled (pics)`
+grid-area:pics;
+`
+
+export const Contato = () => {
+    return (
 <Layout>
     <Container>
-        <div class="figure">
-            <img src="../pics/brenner.PNG"></img>
-            alt="Brenner Ferreira"
-            width=150
-            height=150
-
-            <p>Brenner Ferreira</p>
-        </div>
-        <div class="figure">
-            <img src="../pics/beatriz.PNG"></img>
-            alt="Beatriz Medeiros"
-            width=150
-            height=150
-
-            <p>Beatriz Medeiros</p>
-        </div>
-        <div class="figure">
-            <img src="../pics/fernando.PNG"></img>
-            alt="Fernando Costa"
-            width=150
-            height=150
-
-            <p>Fernando Costa</p>
-        </div>
-        <div class="figure">
-            <img src="../pics/joao.PNG"></img>
-            alt="João Paulo"
-            width=150
-            height=150
-
-            <p>João Paulo</p>
-        </div>
-        <div class="figure">
-            <img src="../pics/vitoria.PNG"></img>
-            alt="Vitória Bernardino"
-            width=150
-            height=150
-
-            <p>Vitória Bernardino</p>
-        </div>
+        <StyledPics src={brenner}
+         alt="Brenner Ferreira"/>
+                  
+        <StyledPics src={beatriz}
+         alt="Beatriz Medeiros"/>
+      
+        <StyledPics src={fernando}
+        alt="Fernando Costa"/>
+            
+        <StyledPics src={joao}
+        alt="João Paulo"/>
+                         
+        <StyledPics src={vitoria}
+        alt="Vitória Bernardino"/>    
+      
     </Container>
 </Layout>
+)
 }
