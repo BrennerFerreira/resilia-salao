@@ -61,7 +61,6 @@ const ClientEdit = styled.div`
 
 export const ClientList = ({ clients, onRemoveClient, onEditClient }) => {
   const onRemove = (id) => {
-    console.log(id);
     onRemoveClient(id);
   };
 

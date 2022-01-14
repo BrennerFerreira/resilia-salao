@@ -36,7 +36,6 @@ export const Home = () => {
       setLoading(true);
       const url = getApiUrl("/home");
       const statistics = await axios.get(url);
-      console.log(statistics.data);
       setStatistics(statistics.data);
       setLoading(false);
     };

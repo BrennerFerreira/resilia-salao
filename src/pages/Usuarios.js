@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import { Layout } from "../components/layout/Layout";
 import { Loading } from "../components/loading/Loading";
@@ -78,7 +79,10 @@ export const Usuarios = () => {
   ) : (
     <Layout>
       <StyledContainer>
-        <StyledTitle>Usuários</StyledTitle>
+        <Helmet>
+          <title>Resilia Salão | Clientes</title>
+        </Helmet>
+        <StyledTitle>Clientes</StyledTitle>
         <Form
           onSubmit={onFormSubmit}
           onCancel={onCancel}

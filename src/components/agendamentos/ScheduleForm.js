@@ -62,7 +62,6 @@ export const ScheduleForm = ({
     setUserSearch(editingSchedule?.user.name || "");
     setSelectedService(editingSchedule?.service);
     setServiceSearch(editingSchedule?.service.name || "");
-    console.log(editingSchedule);
     setSelectedDateTime(
       editingSchedule?.data
         ? formatDate(new Date(editingSchedule.data))
