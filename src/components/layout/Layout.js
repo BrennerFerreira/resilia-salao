@@ -11,13 +11,15 @@ const Container = styled.div`
 
 const StyledContent = styled.div`
   flex: 1;
+  ${(props) => (props.isCenter ? "display: flex;" : "")}
+  ${(props) => (props.isCenter ? "align-items: center;" : "")}
 `;
 
-export const Layout = ({ children }) => {
+export const Layout = ({ children, isCenter }) => {
   return (
     <Container>
       <Header />
-      <StyledContent>{children}</StyledContent>
+      <StyledContent isCenter={isCenter}>{children}</StyledContent>
       <Footer />
     </Container>
   );
