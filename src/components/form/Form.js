@@ -1,31 +1,24 @@
-function Form() {
+import { useState } from "react"
+import { TextInput } from "../input/input"
+import { MainButton } from "../button/MainButton"
+
+function Form({onSubmit}) {
+  const [name, setName] = useState ("")
+  const [email, setEmail] = useState ("")
   function cadastrarCliente(e) {
-    e.preventDefault()
-    console.log('Cliente cadastrado!')
+    e.preventDefault() 
+   onSubmit (name, email)
   }
 
   return (
     <div>
       <h1>Cadastro de cliente:</h1>
-      <form onSubmit={cadastrarCliente}>
-        <div>
-          <input type= "text" placeholder="Cliente" />
-        </div>
-        <div>
-          <input type="email" placeholder="email" />
-        </div>
-        <div>
-          <input type="number" placeholder="Celular" />
-        </div>
-        <div>
-          <input type="text" placeholder="Endereço" />
-        </div>
-        <div>
-          <input type="text" placeholder="CPF" />
-        </div>
-        <div>
-          <input type="submit" value="Cadastrar" />
-        </div>
+      <form>
+       
+    <TextInput id="name" label="Nome" value={name} onChange={setName} />
+    <TextInput id="email" label="E-mail" value={email} onChange={setEmail} />
+    <MainButton label= "Enviar" onClick={cadastrarCliente} disabled={!(name && email)}/>
+      
       </form>
     </div>
   )
