@@ -3,16 +3,15 @@ import styled from "styled-components";
 import { Edit } from "../edit/Edit";
 import { Remove } from "../remove/Remove";
 
-
 const StyledUl = styled.ul`
-  grid-area: users;
+  grid-area: clients;
 `;
 
 const StyledLi = styled.li`
   display: grid;
-  grid-template-columns: 3fr 3fr 3fr 1fr 1fr;
+  grid-template-columns: 3fr 3fr 1fr 1fr;
   grid-template-areas:
-    "clientTitle . ."
+    "clientTitle emailTitle . ."
     "client email edit remove";
   ${(props) =>
     !props.isTitle &&
@@ -27,12 +26,22 @@ const AddClient = styled.div`
   justify-self: center;
 `;
 
+const AddClientEmail = styled.div`
+  grid-area: email;
+  justify-self: center;
+`;
+
 const AddClientTitle = styled.div`
   grid-area: clientTitle;
   font-weight: bold;
   justify-self: center;
 `;
 
+const AddEmailTitle = styled.div`
+  grid-area: emailTitle;
+  font-weight: bold;
+  justify-self: center;
+`;
 
 const ClientRemove = styled.div`
   grid-area: remove;
@@ -50,12 +59,9 @@ const ClientEdit = styled.div`
   }
 `;
 
-export const ClientList = ({
-  Clients,
-  onRemoveClient,
-  onEditClient,
-}) => {
+export const ClientList = ({ clients, onRemoveClient, onEditClient }) => {
   const onRemove = (id) => {
+    console.log(id);
     onRemoveClient(id);
   };
 
@@ -67,17 +73,19 @@ export const ClientList = ({
     <StyledUl>
       <StyledLi key="title" isTitle>
         <AddClientTitle>Cliente</AddClientTitle>
+        <AddEmailTitle>E-mail</AddEmailTitle>
       </StyledLi>
-      {AddClient.map((sch) => {
+      {clients.map((client) => {
         return (
-          <StyledLi key={sch.id}>
-            <AddClient>{sch.user.name}</AddClient>
-          <ClientRemove>
-              <Remove onClick={() => onRemove(sch.id)} />
-          </ClientRemove>
+          <StyledLi key={client.id}>
+            <AddClient>{client.name}</AddClient>
+            <AddClientEmail>{client.email}</AddClientEmail>
             <ClientEdit>
-              <Edit onClick={(e) => onEdit(sch)} />
+              <Edit onClick={(e) => onEdit(client)} />
             </ClientEdit>
+            <ClientRemove>
+              <Remove onClick={(e) => onRemove(client.id)} />
+            </ClientRemove>
           </StyledLi>
         );
       })}
